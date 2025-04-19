@@ -1,0 +1,1 @@
+python -c "from utils.metrics import MetricsUI; MetricsUI().run()"

@@ -16,7 +16,7 @@ class EightPuzzleGame:
         # Inicializar ventana principal
         self.root = tk.Tk()
         self.root.title("8-Puzzle Game")
-        self.root.geometry("600x500")
+        self.root.geometry("1000x720")
         self.root.resizable(False, False)
         
         # Variables de estado
