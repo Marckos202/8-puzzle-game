@@ -1,30 +1,35 @@
 FROM python:3.9-slim
 
-# Instalar dependencias del sistema para tkinter y acceso web
+# Instalar dependencias
 RUN apt-get update && apt-get install -y \
-    python3-tk \
     xvfb \
-    x11-utils \
-    novnc \
     x11vnc \
+    supervisor \
+    python3-tk \
+    libgl1-mesa-glx \
+    git \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Establecer directorio de trabajo
-WORKDIR /app
+# Instalar noVNC directamente desde el repositorio
+RUN mkdir -p /usr/share/novnc && \
+    git clone https://github.com/novnc/noVNC.git /usr/share/novnc && \
+    git clone https://github.com/novnc/websockify /usr/share/novnc/utils/websockify && \
+    ln -s /usr/share/novnc/vnc.html /usr/share/novnc/index.html
 
-# Copiar archivos de requisitos y instalar dependencias
-COPY requirements.txt .
+# Instalar dependencias de Python
+COPY requirements.txt /app/
+WORKDIR /app
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar el código fuente
-COPY . .
+# Copiar archivos del proyecto
+COPY . /app/
 
-# Copiar y dar permisos al script para iniciar el servicio web
-COPY start_web_service.sh .
-RUN chmod +x start_web_service.sh
+# Configurar supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Exponer el puerto para acceso web
+# Exponer el puerto para noVNC
 EXPOSE 8080
 
-# Comando para iniciar la aplicación
-CMD ["./start_web_service.sh"]
+# Comando de inicio con supervisor
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

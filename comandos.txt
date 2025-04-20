@@ -1,1 +1,51 @@
+# Metricas y benchmarck
+
 python -c "from utils.metrics import MetricsUI; MetricsUI().run()"
+
+# Instalar GitHub en EC2
+
+sudo yum install git
+
+# Actualizar paquetes
+
+sudo yum update -y
+
+# Instalar Docker
+
+sudo yum install -y docker
+
+# Iniciar el servicio Docker
+
+sudo systemctl start docker
+
+# Habilitar Docker para que inicie automáticamente
+
+sudo systemctl enable docker
+
+# Agregar tu usuario al grupo docker para evitar usar sudo
+
+sudo usermod -a -G docker ec2-user
+
+# Crear imagen 8 puzzle
+
+docker build -t 8puzzle-game .
+
+# Ejecutar el contenedor
+
+docker run -d --name 8puzzle -p 8080:6080 8puzzle-game
+
+# Instalar Nginx
+
+sudo yum install -y nginx
+
+# Iniciar Nginx
+
+sudo systemctl start nginx
+
+sudo systemctl enable nginx
+
+sudo nano /etc/nginx/conf.d/puzzle-app.conf
+
+sudo dnf install certbot python3-certbot-nginx -y
+
+obtener el certificado sudo certbot certonly --standalone -d jobsmuniversidad.click -d 8puzzle.jobsmuniversidad.click
