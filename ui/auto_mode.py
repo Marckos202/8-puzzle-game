@@ -280,7 +280,7 @@ class AutoModeUI:
             if algorithm == "BFS":
                 result = solver.solve_bfs()
             elif algorithm == "DFS Limitada":
-                result = solver.solve_dfs_limited(depth_limit=20)
+                result = solver.solve_dfs_limited(depth_limit=60)
             elif algorithm == "A* Manhattan":
                 result = solver.solve_astar()
             
@@ -456,7 +456,7 @@ class AutoModeUI:
                 if algorithm == "BFS":
                     result = solver.solve_bfs()
                 elif algorithm == "DFS Limitada":
-                    result = solver.solve_dfs_limited(depth_limit=20)
+                    result = solver.solve_dfs_limited(depth_limit=60)
                 elif algorithm == "A* Manhattan":
                     result = solver.solve_astar()
                 

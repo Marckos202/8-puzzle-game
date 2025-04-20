@@ -240,7 +240,7 @@ class PuzzleSolver:
             'execution_time': self.execution_time
         }
     
-    def solve_dfs_limited(self, depth_limit=20):
+    def solve_dfs_limited(self, depth_limit=60):
         """
         Resuelve el puzzle usando Búsqueda en Profundidad Limitada (DFS limitada).
         
