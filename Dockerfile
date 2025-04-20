@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
+# Crear directorios necesarios para supervisor
+RUN mkdir -p /var/log/supervisor
+
 # Instalar noVNC directamente desde el repositorio
 RUN mkdir -p /usr/share/novnc && \
     git clone https://github.com/novnc/noVNC.git /usr/share/novnc && \
@@ -29,7 +32,7 @@ COPY . /app/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Exponer el puerto para noVNC
-EXPOSE 8080
+EXPOSE 6080
 
 # Comando de inicio con supervisor
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
